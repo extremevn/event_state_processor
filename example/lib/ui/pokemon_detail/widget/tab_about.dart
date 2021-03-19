@@ -12,7 +12,8 @@ class PokemonAbout extends StatelessWidget {
   final Pokemon _pokemon;
   final Animation _animation;
 
-  Widget _buildSection(BuildContext context, String text, {List<Widget> children, Widget child}) {
+  Widget _buildSection(BuildContext context, String text,
+      {List<Widget> children, Widget child}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -93,73 +94,80 @@ class PokemonAbout extends StatelessWidget {
   }
 
   Widget _buildBreeding(BuildContext context) {
-    return _buildSection(context, Translations.of(context).text('breeding'), children: [
-      Row(
-        children: <Widget>[
-          Expanded(child: _buildLabel(Translations.of(context).text('gender'))),
-          if (_pokemon.genderless == 0) ...[
-            Expanded(
-              child: Row(
-                children: <Widget>[
-                  const Image(image: AppImages.male, width: 12, height: 12),
-                  const SizedBox(width: 4),
-                  Text(_pokemon.genderMalePercentage, style: const TextStyle(height: 0.8)),
-                ],
+    return _buildSection(context, Translations.of(context).text('breeding'),
+        children: [
+          Row(
+            children: <Widget>[
+              Expanded(
+                  child: _buildLabel(Translations.of(context).text('gender'))),
+              if (_pokemon.genderless == 0) ...[
+                Expanded(
+                  child: Row(
+                    children: <Widget>[
+                      const Image(image: AppImages.male, width: 12, height: 12),
+                      const SizedBox(width: 4),
+                      Text(_pokemon.genderMalePercentage,
+                          style: const TextStyle(height: 0.8)),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    children: <Widget>[
+                      const Image(
+                          image: AppImages.female, width: 12, height: 12),
+                      const SizedBox(width: 4),
+                      Text(_pokemon.genderFemalePercentage,
+                          style: const TextStyle(height: 0.8)),
+                    ],
+                  ),
+                ),
+              ] else
+                Expanded(
+                  flex: 3,
+                  child: Text(
+                    Translations.of(context).text('genderless'),
+                    style: const TextStyle(height: 0.8),
+                  ),
+                ),
+            ],
+          ),
+          SizedBox(height: context.responsive(18)),
+          Row(
+            children: <Widget>[
+              Expanded(
+                  child:
+                      _buildLabel(Translations.of(context).text('egg_groups'))),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  _pokemon.eggGroups,
+                  style: const TextStyle(height: 0.8),
+                ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                children: <Widget>[
-                  const Image(image: AppImages.female, width: 12, height: 12),
-                  const SizedBox(width: 4),
-                  Text(_pokemon.genderFemalePercentage, style: const TextStyle(height: 0.8)),
-                ],
+              const Expanded(child: SizedBox()),
+            ],
+          ),
+          SizedBox(height: context.responsive(18)),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: _buildLabel(Translations.of(context).text('egg_cycle')),
               ),
-            ),
-          ] else
-            Expanded(
-              flex: 3,
-              child: Text(
-                Translations.of(context).text('genderless'),
-                style: const TextStyle(height: 0.8),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  _pokemon.eggGroups,
+                  style: const TextStyle(height: 0.8),
+                ),
               ),
-            ),
-        ],
-      ),
-      SizedBox(height: context.responsive(18)),
-      Row(
-        children: <Widget>[
-          Expanded(child: _buildLabel(Translations.of(context).text('egg_groups'))),
-          Expanded(
-            flex: 2,
-            child: Text(
-              _pokemon.eggGroups,
-              style: const TextStyle(height: 0.8),
-            ),
+              const Expanded(
+                child: SizedBox(),
+              ),
+            ],
           ),
-          const Expanded(child: SizedBox()),
-        ],
-      ),
-      SizedBox(height: context.responsive(18)),
-      Row(
-        children: <Widget>[
-          Expanded(
-            child: _buildLabel(Translations.of(context).text('egg_cycle')),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(
-              _pokemon.eggGroups,
-              style: const TextStyle(height: 0.8),
-            ),
-          ),
-          const Expanded(
-            child: SizedBox(),
-          ),
-        ],
-      ),
-    ]);
+        ]);
   }
 
   Widget _buildLocation(BuildContext context) {
@@ -184,7 +192,8 @@ class PokemonAbout extends StatelessWidget {
       Translations.of(context).text('training'),
       child: Row(
         children: <Widget>[
-          Expanded(child: _buildLabel(Translations.of(context).text('base_exp'))),
+          Expanded(
+              child: _buildLabel(Translations.of(context).text('base_exp'))),
           Expanded(flex: 3, child: Text(_pokemon.baseExp)),
         ],
       ),
@@ -203,7 +212,9 @@ class PokemonAbout extends StatelessWidget {
             vertical: context.responsive(19),
             horizontal: 27,
           ),
-          physics: scrollable ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
+          physics: scrollable
+              ? const BouncingScrollPhysics()
+              : const NeverScrollableScrollPhysics(),
           child: child,
         );
       },

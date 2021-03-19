@@ -24,7 +24,7 @@ class Stat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double currentProgress = progress ?? value / 100;
+    final currentProgress = progress ?? value / 100;
     return Row(
       children: <Widget>[
         Expanded(
@@ -62,7 +62,8 @@ class PokemonBaseStats extends StatefulWidget {
   _PokemonBaseStatsState createState() => _PokemonBaseStatsState();
 }
 
-class _PokemonBaseStatsState extends State<PokemonBaseStats> with SingleTickerProviderStateMixin {
+class _PokemonBaseStatsState extends State<PokemonBaseStats>
+    with SingleTickerProviderStateMixin {
   Animation<double> _animation;
   AnimationController _controller;
 
@@ -98,17 +99,35 @@ class _PokemonBaseStatsState extends State<PokemonBaseStats> with SingleTickerPr
 
   List<Widget> generateStatWidget(BuildContext context) {
     return [
-      Stat(animation: _animation, label: Translations.of(context).text('hp'), value: pokemon.hp),
+      Stat(
+          animation: _animation,
+          label: Translations.of(context).text('hp'),
+          value: pokemon.hp),
       SizedBox(height: context.responsive(14)),
-      Stat(animation: _animation, label: Translations.of(context).text('attack'), value: pokemon.attack),
+      Stat(
+          animation: _animation,
+          label: Translations.of(context).text('attack'),
+          value: pokemon.attack),
       SizedBox(height: context.responsive(14)),
-      Stat(animation: _animation, label: Translations.of(context).text('defense'), value: pokemon.defense),
+      Stat(
+          animation: _animation,
+          label: Translations.of(context).text('defense'),
+          value: pokemon.defense),
       SizedBox(height: context.responsive(14)),
-      Stat(animation: _animation, label: Translations.of(context).text('sp_atk'), value: pokemon.specialAttack),
+      Stat(
+          animation: _animation,
+          label: Translations.of(context).text('sp_atk'),
+          value: pokemon.specialAttack),
       SizedBox(height: context.responsive(14)),
-      Stat(animation: _animation, label: Translations.of(context).text('sp_def'), value: pokemon.specialDefense),
+      Stat(
+          animation: _animation,
+          label: Translations.of(context).text('sp_def'),
+          value: pokemon.specialDefense),
       SizedBox(height: context.responsive(14)),
-      Stat(animation: _animation, label: Translations.of(context).text('speed'), value: pokemon.speed),
+      Stat(
+          animation: _animation,
+          label: Translations.of(context).text('speed'),
+          value: pokemon.speed),
       SizedBox(height: context.responsive(14)),
       Stat(
         animation: _animation,
@@ -121,7 +140,10 @@ class _PokemonBaseStatsState extends State<PokemonBaseStats> with SingleTickerPr
 
   List<Widget> _buildEffectivenesses(BuildContext context) {
     final list = pokemon.types
-        .map((type) => PokemonType(PokemonTypesX.parse(type ?? ""), large: true, colored: true, extra: Translations.of(context).text('extra')))
+        .map((type) => PokemonType(PokemonTypesX.parse(type ?? ''),
+            large: true,
+            colored: true,
+            extra: Translations.of(context).text('extra')))
         .toList();
     return list;
   }
@@ -138,7 +160,9 @@ class _PokemonBaseStatsState extends State<PokemonBaseStats> with SingleTickerPr
             vertical: context.responsive(24),
             horizontal: 24,
           ),
-          physics: scrollable ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
+          physics: scrollable
+              ? const BouncingScrollPhysics()
+              : const NeverScrollableScrollPhysics(),
           child: child,
         );
       },
@@ -157,7 +181,8 @@ class _PokemonBaseStatsState extends State<PokemonBaseStats> with SingleTickerPr
           ),
           SizedBox(height: context.responsive(15)),
           Text(
-            Translations.of(context).textWithArgs('poke_stats', {"pokemon_name": pokemon.name}),
+            Translations.of(context)
+                .textWithArgs('poke_stats', {'pokemon_name': pokemon.name}),
             style: TextStyle(color: AppColors.black.withOpacity(0.6)),
           ),
           SizedBox(height: context.responsive(15)),

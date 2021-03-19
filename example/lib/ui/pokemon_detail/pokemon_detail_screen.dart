@@ -6,13 +6,15 @@ import 'package:example_event_state_processor/ui/pokemon_detail/pokemon_detail_s
 import 'package:example_event_state_processor/ui/pokemon_detail/widget/pokemon_detail.dart';
 import 'package:flutter/material.dart';
 
-class PokemonDetailScreen extends CoreScreen<PokemonDetailEvent, PokemonDetailState, PokemonDetailEventProcessor> {
+class PokemonDetailScreen extends CoreScreen<PokemonDetailEvent,
+    PokemonDetailState, PokemonDetailEventProcessor> {
   final Pokemon pokemonDetail;
 
   const PokemonDetailScreen(this.pokemonDetail);
 
   @override
-  void handleDataStateChange(BuildContext context, PokemonDetailEventProcessor processor, PokemonDetailState state) {}
+  void handleDataStateChange(BuildContext context,
+      PokemonDetailEventProcessor processor, PokemonDetailState state) {}
 
   @override
   PokemonDetailEventProcessor createEventProcessor(BuildContext context) {
@@ -20,8 +22,8 @@ class PokemonDetailScreen extends CoreScreen<PokemonDetailEvent, PokemonDetailSt
   }
 
   @override
-  Widget buildScreenUi(BuildContext context, PokemonDetailEventProcessor processor, PokemonDetailState state) {
-
+  Widget buildScreenUi(BuildContext context,
+      PokemonDetailEventProcessor processor, PokemonDetailState state) {
     return PokemonDetail(pokemonDetail);
   }
 }

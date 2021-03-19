@@ -19,8 +19,6 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 
-import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/event.dart';
-import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/state.dart';
 import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/type.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +37,6 @@ abstract class EventToStateProcessor<E extends UiEvent, S extends DataState>
   /// Takes a `Stream` of `UiEvent` [event] as input
   /// and transforms them into a `Stream` of `DataState` as output.
   Stream<S> processEvent(E event);
-
 
   /// Send|Raise `UiEvent` [event] for processing in 'processEvent' function
   void raiseEvent(E event) {
@@ -112,7 +109,8 @@ class ProcessorProvider<EP extends EventToStateProcessor<dynamic, dynamic>>
   /// ```dart
   /// ProcessorProvider.of<EventToStateProcessorA>(context)
   /// ```
-  static T of<T extends EventToStateProcessor<dynamic, dynamic>>(BuildContext context) {
+  static T of<T extends EventToStateProcessor<dynamic, dynamic>>(
+      BuildContext context) {
     return BlocProvider.of<T>(context);
   }
 }

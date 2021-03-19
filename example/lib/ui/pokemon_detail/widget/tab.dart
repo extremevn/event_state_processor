@@ -45,14 +45,15 @@ class PokemonTabInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = context.screenSize.width;
-    final List<TabData> tabs = [
+    final tabs = <TabData>[
       TabData(
         label: Translations.of(context).text('tab_about'),
         builder: (pokemon, animation) => PokemonAbout(pokemon, animation),
       ),
       TabData(
         label: Translations.of(context).text('tab_stats'),
-        builder: (pokemon, animation) => PokemonBaseStats(pokemon, animation as Animation<double>),
+        builder: (pokemon, animation) =>
+            PokemonBaseStats(pokemon, animation as Animation<double>),
       ),
       TabData(
         label: Translations.of(context).text('tab_evolution'),
@@ -75,7 +76,9 @@ class PokemonTabInfo extends StatelessWidget {
           children: <Widget>[
             AnimatedBuilder(
               animation: _animation,
-              builder: (context, _) => SizedBox(height: context.responsive((1 - (_animation.value as double)) * 16 + 6)),
+              builder: (context, _) => SizedBox(
+                  height: context
+                      .responsive((1 - (_animation.value as double)) * 16 + 6)),
             ),
             _buildTabBar(context, tabs),
             _buildTabContent(tabs),

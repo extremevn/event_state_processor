@@ -11,20 +11,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-
 AppEventProcessor appEventProcessor;
 
-
 class App extends CoreScreen<AppEvent, AppDataState, AppEventProcessor> {
-
   @override
-  Widget buildScreenUi(BuildContext context, AppEventProcessor processor, AppDataState state) {
+  Widget buildScreenUi(
+      BuildContext context, AppEventProcessor processor, AppDataState state) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: Theme.of(context).textTheme.apply(
-          displayColor: AppColors.black,
-        ),
+              displayColor: AppColors.black,
+            ),
         scaffoldBackgroundColor: AppColors.lightGrey,
         primarySwatch: Colors.blue,
       ),
@@ -50,7 +48,8 @@ class App extends CoreScreen<AppEvent, AppDataState, AppEventProcessor> {
   }
 
   @override
-  void handleDataStateChange(BuildContext context, AppEventProcessor processor, AppDataState state) {}
+  void handleDataStateChange(
+      BuildContext context, AppEventProcessor processor, AppDataState state) {}
 
   Widget _getScreen(AppDataState appDataState) {
     switch (appDataState.state) {

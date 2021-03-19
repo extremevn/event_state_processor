@@ -67,7 +67,8 @@ class _PokemonEvolutionState extends State<PokemonEvolution> {
               SizedBox(height: context.responsive(7)),
               Text(
                 reason,
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -108,7 +109,9 @@ class _PokemonEvolutionState extends State<PokemonEvolution> {
         final scrollable = widget.animation.value.floor() == 1;
 
         return SingleChildScrollView(
-          physics: scrollable ? const BouncingScrollPhysics() : const NeverScrollableScrollPhysics(),
+          physics: scrollable
+              ? const BouncingScrollPhysics()
+              : const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.symmetric(
             vertical: context.responsive(31),
             horizontal: 28,
@@ -121,7 +124,8 @@ class _PokemonEvolutionState extends State<PokemonEvolution> {
         children: <Widget>[
           Text(
             Translations.of(context).text('evolution_chain'),
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, height: 0.8),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 16, height: 0.8),
           ),
           SizedBox(height: context.responsive(28)),
           ...buildEvolutionList([widget.pokemon, widget.pokemon]),

@@ -9,10 +9,19 @@ class HomeDataState extends DataState {
   final List<Pokemon> pokemons;
   final int currentPage;
 
+  const HomeDataState(
+      {this.isInit,
+      this.isLoading,
+      this.error,
+      this.pokemons,
+      this.currentPage});
 
-  const HomeDataState({this.isInit, this.isLoading, this.error, this.pokemons, this.currentPage});
-
-  HomeDataState copy({bool isInit, bool isLoading, ApiException error, List<Pokemon> dataPokemon, int currentPage}) {
+  HomeDataState copy(
+      {bool isInit,
+      bool isLoading,
+      ApiException error,
+      List<Pokemon> dataPokemon,
+      int currentPage}) {
     return HomeDataState(
         isInit: isInit ?? this.isInit,
         isLoading: isLoading ?? this.isLoading,
@@ -21,7 +30,8 @@ class HomeDataState extends DataState {
         error: error);
   }
 
-  List<Pokemon> mergeWith(List<Pokemon> dataPokemon){
-    return  pokemons == null || pokemons.isEmpty ? dataPokemon : pokemons..addAll(dataPokemon);
+  List<Pokemon> mergeWith(List<Pokemon> dataPokemon) {
+    return pokemons == null || pokemons.isEmpty ? dataPokemon : pokemons
+      ..addAll(dataPokemon);
   }
 }

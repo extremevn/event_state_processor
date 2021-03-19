@@ -16,7 +16,8 @@ class PokemonOverallInfo extends StatefulWidget {
   _PokemonOverallInfoState createState() => _PokemonOverallInfoState();
 }
 
-class _PokemonOverallInfoState extends State<PokemonOverallInfo> with TickerProviderStateMixin {
+class _PokemonOverallInfoState extends State<PokemonOverallInfo>
+    with TickerProviderStateMixin {
   Pokemon get pokemon => widget.pokemon;
 
   AnimationController _rotateController;
@@ -89,7 +90,9 @@ class _PokemonOverallInfoState extends State<PokemonOverallInfo> with TickerProv
             child: Wrap(
               spacing: context.responsive(8),
               runSpacing: context.responsive(8),
-              children: pokemon.types.map((type) => PokemonType(PokemonTypesX.parse(type))).toList(),
+              children: pokemon.types
+                  .map((type) => PokemonType(PokemonTypesX.parse(type)))
+                  .toList(),
             ),
           ),
           Text(

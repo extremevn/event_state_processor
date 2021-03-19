@@ -8,11 +8,11 @@ import 'package:example_event_state_processor/ui/pokemon_detail/pokemon_detail_s
 import 'package:example_event_state_processor/ui/view_common/loading_indicator_widget.dart';
 import 'package:flutter/material.dart';
 
-
-
-class HomeScreen extends CoreScreen<HomeEvent, HomeDataState, HomeEventProcessor> {
+class HomeScreen
+    extends CoreScreen<HomeEvent, HomeDataState, HomeEventProcessor> {
   @override
-  void handleDataStateChange(BuildContext context, HomeEventProcessor processor, HomeDataState state) {}
+  void handleDataStateChange(BuildContext context, HomeEventProcessor processor,
+      HomeDataState state) {}
 
   @override
   HomeEventProcessor createEventProcessor(BuildContext context) {
@@ -20,7 +20,8 @@ class HomeScreen extends CoreScreen<HomeEvent, HomeDataState, HomeEventProcessor
   }
 
   @override
-  Widget buildScreenUi(BuildContext context, HomeEventProcessor processor, HomeDataState state) {
+  Widget buildScreenUi(
+      BuildContext context, HomeEventProcessor processor, HomeDataState state) {
     if (state.isInit) {
       processor.raiseEvent(const LoadDataEvent(page: 0));
     }
@@ -38,15 +39,17 @@ class HomeScreen extends CoreScreen<HomeEvent, HomeDataState, HomeEventProcessor
     );
   }
 
-  Widget _mainContentWidget(BuildContext context, HomeEventProcessor processor, HomeDataState state) {
+  Widget _mainContentWidget(
+      BuildContext context, HomeEventProcessor processor, HomeDataState state) {
     return PokemonGrid(
       pokemons: state.pokemons,
       canLoadMore: state.currentPage < 1,
       onRefresh: () async {
-        debugPrint("onRefresh data");
+        debugPrint('onRefresh data');
       },
       onSelectPokemon: (index, pokemon) {
-        Navigator.of(context).push(FadeRoute(page: PokemonDetailScreen(pokemon)));
+        Navigator.of(context)
+            .push(FadeRoute(page: PokemonDetailScreen(pokemon)));
       },
     );
   }

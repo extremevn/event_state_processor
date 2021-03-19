@@ -22,7 +22,7 @@ class Translations {
   }
 
   String textWithArgs(String key, Map<String, dynamic> args) {
-    String str = text(key);
+    var str = text(key);
     args.forEach((key, value) {
       str = str.replaceAll('\${$key}', value.toString());
     });
@@ -30,9 +30,9 @@ class Translations {
   }
 
   static Future<Translations> load(Locale locale) async {
-    final Translations translations = Translations(locale);
-    final String jsonContent =
-        await rootBundle.loadString("locale/i18n_${locale.languageCode}.json");
+    final translations = Translations(locale);
+    final jsonContent =
+        await rootBundle.loadString('locale/i18n_${locale.languageCode}.json');
     _localizedValues = jsonDecode(jsonContent) as Map<String, dynamic>;
     return translations;
   }

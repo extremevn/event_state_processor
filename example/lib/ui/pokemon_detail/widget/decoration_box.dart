@@ -17,12 +17,12 @@ class DecorationBox extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24),
           gradient: LinearGradient(
-            begin: const Alignment(-0.2, -0.2),
-            end: const Alignment(1.5, -0.3),
             colors: [
               Colors.white.withOpacity(0.3),
               Colors.white.withOpacity(0),
             ],
+            begin: const Alignment(-0.2, -0.2),
+            end: const Alignment(1.5, -0.3),
           ),
         ),
       ),

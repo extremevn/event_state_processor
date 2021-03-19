@@ -1,6 +1,5 @@
 import 'package:eventstateprocessor/eventstateprocessor.dart';
 
-
 class AppDataState extends DataState {
   final AppState state;
   const AppDataState({this.state});
@@ -9,4 +8,4 @@ class AppDataState extends DataState {
       AppDataState(state: newState ?? state);
 }
 
-enum AppState { uninitialized, home}
+enum AppState { uninitialized, home }

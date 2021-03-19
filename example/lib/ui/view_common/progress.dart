@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:example_event_state_processor/extensions/context.dart';
 
 class ProgressBar extends StatelessWidget {
-   const ProgressBar({
+  const ProgressBar({
     this.color = AppColors.red,
     @required this.progress,
   });
@@ -21,17 +21,16 @@ class ProgressBar extends StatelessWidget {
     );
 
     return Container(
-      clipBehavior: Clip.hardEdge,
-      height: context.responsive(3),
-      alignment: Alignment.centerLeft,
-      decoration: const ShapeDecoration(
-        shape: StadiumBorder(),
-        color: AppColors.lighterGrey,
-      ),
-      child :  FractionallySizedBox(
-        widthFactor: progress,
-        child: child,
-      )
-    );
+        clipBehavior: Clip.hardEdge,
+        height: context.responsive(3),
+        alignment: Alignment.centerLeft,
+        decoration: const ShapeDecoration(
+          shape: StadiumBorder(),
+          color: AppColors.lighterGrey,
+        ),
+        child: FractionallySizedBox(
+          widthFactor: progress,
+          child: child,
+        ));
   }
 }

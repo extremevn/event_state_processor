@@ -8,8 +8,8 @@ class PokemonDetailState extends DataState {
 
   PokemonDetailState copy({bool isInit, bool isLoading}) {
     return PokemonDetailState(
-        isInit: isInit ?? this.isInit,
-        isLoading: isLoading ?? this.isLoading,
-       );
+      isInit: isInit ?? this.isInit,
+      isLoading: isLoading ?? this.isLoading,
+    );
   }
 }

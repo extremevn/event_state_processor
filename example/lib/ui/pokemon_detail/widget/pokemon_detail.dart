@@ -19,7 +19,8 @@ class PokemonDetail extends StatefulWidget {
   _PokemonDetailState createState() => _PokemonDetailState();
 }
 
-class _PokemonDetailState extends State<PokemonDetail> with TickerProviderStateMixin {
+class _PokemonDetailState extends State<PokemonDetail>
+    with TickerProviderStateMixin {
   static const double _pokemonSlideOverflow = 20;
 
   final GlobalKey _pokemonInfoKey = GlobalKey();
@@ -61,7 +62,8 @@ class _PokemonDetailState extends State<PokemonDetail> with TickerProviderStateM
       final screenHeight = context.screenSize.height;
       final appBarHeight = AppBar().preferredSize.height;
 
-      final pokemonInfoBox = _pokemonInfoKey.currentContext.findRenderObject() as RenderBox;
+      final pokemonInfoBox =
+          _pokemonInfoKey.currentContext.findRenderObject() as RenderBox;
 
       _cardMinHeight = screenHeight - pokemonInfoBox.size.height;
       _cardMaxHeight = screenHeight - appBarHeight - context.padding.top;
@@ -72,13 +74,13 @@ class _PokemonDetailState extends State<PokemonDetail> with TickerProviderStateM
     super.initState();
   }
 
-
   Widget _buildBackground() {
-      return AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        constraints: const BoxConstraints.expand(),
-        color: parseColorPokemon(widget.pokemon.types?.first ?? "") ?? AppColors.teal,
-      );
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      constraints: const BoxConstraints.expand(),
+      color: parseColorPokemon(widget.pokemon.types?.first ?? '') ??
+          AppColors.teal,
+    );
   }
 
   Widget _buildBoxDecoration() {
@@ -153,7 +155,8 @@ class _PokemonDetailState extends State<PokemonDetail> with TickerProviderStateM
       animation: _cardHeightController,
       builder: (_, child) {
         return SlidingUpPanel(
-          minHeight: _cardMinHeight * _cardHeightController.value + _pokemonSlideOverflow,
+          minHeight: _cardMinHeight * _cardHeightController.value +
+              _pokemonSlideOverflow,
           maxHeight: _cardMaxHeight,
           boxShadow: null,
           color: Colors.transparent,
@@ -161,7 +164,7 @@ class _PokemonDetailState extends State<PokemonDetail> with TickerProviderStateM
           onPanelSlide: (position) => _cardController.value = position,
         );
       },
-      child:  PokemonTabInfo(_cardController, widget.pokemon),
+      child: PokemonTabInfo(_cardController, widget.pokemon),
     );
 
     // return PokemonTabInfo(_cardController, widget.pokemon);

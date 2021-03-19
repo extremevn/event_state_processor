@@ -18,10 +18,12 @@ class ApiImpl implements Api {
 
   Future<bool> isConnected() async {
     final connectivityResult = await connectivity.checkConnectivity();
-    return connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi;
+    return connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi;
   }
 
-  Future<T> callApi<T>(Future<http.Response> apiResponse, ParseDataFunction<T> parseDataFunction) async {
+  Future<T> callApi<T>(Future<http.Response> apiResponse,
+      ParseDataFunction<T> parseDataFunction) async {
     if (!await isConnected()) {
       throw ApiException.noInternet();
     }
@@ -31,7 +33,8 @@ class ApiImpl implements Api {
     return handleRespond(respond, parseDataFunction);
   }
 
-  T handleRespond<T>(http.Response response, ParseDataFunction<T> parseDataFunction) {
+  T handleRespond<T>(
+      http.Response response, ParseDataFunction<T> parseDataFunction) {
     switch (response.statusCode) {
       case httpStatusOk:
         try {
@@ -46,7 +49,7 @@ class ApiImpl implements Api {
   }
 
   @override
-  Future<List<Pokemon>> getPokemons(int offset, int limit) async{
+  Future<List<Pokemon>> getPokemons(int offset, int limit) async {
     //Todo : example call data from api
     // final url = "$webApiBaseUrl/pokemon?offset=$offset&limit=$limit";
     // final apiResponse = http.get(url);
@@ -56,9 +59,11 @@ class ApiImpl implements Api {
     //         ?.map((pokemonData) => Pokemon.fromJson(pokemonData as Map<String, dynamic>))
     //         ?.toList());
 
-    final String data = await rootBundle.loadString('asset/pokemons.json');
+    final data = await rootBundle.loadString('asset/pokemons.json');
     final jsonResult = jsonDecode(data) as List;
-    final List<Pokemon> listPokemons = jsonResult.map((e) => Pokemon.fromJson(e as Map<String, dynamic>)).toList();
+    final listPokemons = jsonResult
+        .map((e) => Pokemon.fromJson(e as Map<String, dynamic>))
+        .toList();
     return listPokemons;
   }
 }

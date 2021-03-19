@@ -19,9 +19,7 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 
-import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/event.dart';
 import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/processor.dart';
-import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/state.dart';
 import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

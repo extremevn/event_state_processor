@@ -10,7 +10,11 @@ Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
 }
 
 Size textSize(String text, TextStyle style) {
-  final TextPainter textPainter = TextPainter(text: TextSpan(text: text, style: style), maxLines: 1, textDirection: TextDirection.ltr)..layout();
+  final textPainter = TextPainter(
+      text: TextSpan(text: text, style: style),
+      maxLines: 1,
+      textDirection: TextDirection.ltr)
+    ..layout();
   return textPainter.size;
 }
 
@@ -23,7 +27,7 @@ bool checkEmpty(String inputStr) {
 }
 
 String getErrorBasedOnErrorCode(BuildContext context, String errorCode) {
-  return Translations.of(context).text("message_error_$errorCode");
+  return Translations.of(context).text('message_error_$errorCode');
 }
 
 void hiddenKeyboard(BuildContext context) {
@@ -31,7 +35,7 @@ void hiddenKeyboard(BuildContext context) {
 }
 
 String cleanSpace(String text) {
-  return text.replaceAll(" ", "");
+  return text.replaceAll(' ', '');
 }
 
 void scrollToTop(ScrollController scrollController) {
@@ -47,58 +51,58 @@ String getEnumValue(e) => e.toString().split('.').last;
 
 Color parseColorPokemon(String typeFirst) {
   switch (typeFirst.toLowerCase()) {
-    case "grass":
+    case 'grass':
       return AppColors.lightGreen;
 
-    case "bug":
+    case 'bug':
       return AppColors.lightTeal;
 
-    case "fire":
+    case 'fire':
       return AppColors.lightRed;
 
-    case "water":
+    case 'water':
       return AppColors.lightBlue;
 
-    case "fighting":
+    case 'fighting':
       return AppColors.red;
 
-    case "normal":
+    case 'normal':
       return AppColors.beige;
 
-    case "electric":
+    case 'electric':
       return AppColors.lightYellow;
 
-    case "psychic":
+    case 'psychic':
       return AppColors.lightPink;
 
-    case "poison":
+    case 'poison':
       return AppColors.lightPurple;
 
-    case "ghost":
+    case 'ghost':
       return AppColors.purple;
 
-    case "ground":
+    case 'ground':
       return AppColors.darkBrown;
 
-    case "rock":
+    case 'rock':
       return AppColors.lightBrown;
 
-    case "dark":
+    case 'dark':
       return AppColors.black;
 
-    case "dragon":
+    case 'dragon':
       return AppColors.violet;
 
-    case "fairy":
+    case 'fairy':
       return AppColors.pink;
 
-    case "flying":
+    case 'flying':
       return AppColors.lilac;
 
-    case "ice":
+    case 'ice':
       return AppColors.lightCyan;
 
-    case "steel":
+    case 'steel':
       return AppColors.grey;
 
     default:

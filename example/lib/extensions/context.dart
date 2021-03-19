@@ -8,7 +8,8 @@ extension BuildContextX on BuildContext {
   EdgeInsets get padding => MediaQuery.of(this).padding;
 
   double responsive(double size, {Axis axis = Axis.vertical}) {
-    final currentSize = axis == Axis.horizontal ? screenSize.width : screenSize.height;
+    final currentSize =
+        axis == Axis.horizontal ? screenSize.width : screenSize.height;
     final designSize = axis == Axis.horizontal ? 375 : 754;
 
     return size * currentSize / designSize;

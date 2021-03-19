@@ -81,7 +81,7 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = parseColorPokemon(pokemon.types?.first ?? "");
+    final color = parseColorPokemon(pokemon.types?.first ?? '');
     return LayoutBuilder(
       builder: (context, constrains) {
         final itemHeight = constrains.maxHeight;
@@ -134,7 +134,7 @@ class _CardContent extends StatelessWidget {
         .map(
           (type) => Padding(
             padding: EdgeInsets.symmetric(vertical: context.responsive(3)),
-            child: PokemonType(PokemonTypesX.parse(type ?? "")),
+            child: PokemonType(PokemonTypesX.parse(type ?? '')),
           ),
         )
         .toList();

@@ -13,5 +13,4 @@ class AppImages {
   static const female = _Image('female.png');
   static const dotted = _Image('dotted.png');
   static const pikloader = _Image('pika_loader.gif');
-
 }
