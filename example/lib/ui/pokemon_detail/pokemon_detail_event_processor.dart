@@ -6,9 +6,7 @@ import 'package:example_event_state_processor/ui/pokemon_detail/pokemon_detail_s
 
 class PokemonDetailEventProcessor
     extends EventToStateProcessor<PokemonDetailEvent, PokemonDetailState> {
-  @override
-  PokemonDetailState get initialState =>
-      const PokemonDetailState(isInit: true, isLoading: false);
+  PokemonDetailEventProcessor() : super(const PokemonDetailState(isInit: true, isLoading: false));
 
   @override
   Stream<PokemonDetailState> processEvent(PokemonDetailEvent event) async* {}

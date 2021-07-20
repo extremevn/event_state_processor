@@ -27,6 +27,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// and transforms them into a `Stream` of `DataState` as output.
 abstract class EventToStateProcessor<E extends UiEvent, S extends DataState>
     extends Bloc<E, S> {
+  EventToStateProcessor(S initialState) : super(initialState);
+
   @override
   Stream<S> mapEventToState(
     E event,
@@ -159,7 +161,7 @@ class ProcessorProvider<EP extends EventToStateProcessor<dynamic, dynamic>>
 /// As a result, the only advantage of using [MultiProcessorProvider] is improved
 /// readability due to the reduction in nesting and boilerplate.
 class MultiProcessorProvider extends MultiBlocProvider {
-  const MultiProcessorProvider({
+  MultiProcessorProvider({
     Key key,
     @required List<ProcessorProvider> processorProviders,
     Widget child,

@@ -8,3 +8,8 @@ Features:
 Updates:
 - Fix static analysis issues
 - Update example dependency point to pub.dev
+
+# [0.1.0] - 2021/07/20
+Updates:
+- Update flutter_bloc version to 7.0.1 for support Null Safety
+- Update example code

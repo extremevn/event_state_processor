@@ -3,9 +3,7 @@ import 'package:example_event_state_processor/ui/app/app_data_state.dart';
 import 'package:example_event_state_processor/ui/app/app_event.dart';
 
 class AppEventProcessor extends EventToStateProcessor<AppEvent, AppDataState> {
-  @override
-  AppDataState get initialState =>
-      const AppDataState(state: AppState.uninitialized);
+  AppEventProcessor() : super(const AppDataState(state: AppState.uninitialized));
 
   @override
   Stream<AppDataState> processEvent(
