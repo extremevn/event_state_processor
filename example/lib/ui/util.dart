@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'app/translation.dart';
 
 Color hexToColor(String hexString, {String alphaChannel = 'FF'}) {
-  if (hexString == null || hexString.isEmpty) return Colors.transparent;
+  if (hexString.isEmpty) return Colors.transparent;
 
   return Color(int.parse(hexString.replaceFirst('#', '0x$alphaChannel')));
 }

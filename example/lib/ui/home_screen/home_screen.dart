@@ -1,4 +1,5 @@
 import 'package:eventstateprocessor/eventstateprocessor.dart';
+import 'package:example_event_state_processor/domain/pojo/pokemon.dart';
 import 'package:example_event_state_processor/fade_page_route.dart';
 import 'package:example_event_state_processor/ui/home_screen/home_event.dart';
 import 'package:example_event_state_processor/ui/home_screen/home_event_processor.dart';
@@ -42,7 +43,7 @@ class HomeScreen
   Widget _mainContentWidget(
       BuildContext context, HomeEventProcessor processor, HomeDataState state) {
     return PokemonGrid(
-      pokemons: state.pokemons,
+      pokemons: state.pokemons ?? <Pokemon>[],
       canLoadMore: state.currentPage < 1,
       onRefresh: () async {
         debugPrint('onRefresh data');

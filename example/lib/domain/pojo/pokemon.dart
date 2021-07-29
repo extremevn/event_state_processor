@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-@JsonSerializable(nullable: true)
+@JsonSerializable()
 class Pokemon {
   @JsonKey(name: 'name', disallowNullValue: true)
   final String name;
@@ -121,15 +121,15 @@ Pokemon _pokemonFromJson(Map<String, dynamic> json) {
       json['name'] as String,
       json['id'] as String,
       json['imageurl'] as String,
-      json['xdescription'] as String ?? '',
-      json['ydescription'] as String ?? '',
-      json['height'] as String ?? '',
-      json['category'] as String ?? '',
-      json['weight'] as String ?? '',
-      (json['typeofpokemon'] as List)?.map((e) => e as String)?.toList(),
-      (json['weaknesses'] as List)?.map((e) => e as String)?.toList() ?? [],
-      (json['evolutions'] as List)?.map((e) => e as String)?.toList() ?? [],
-      (json['abilities'] as List)?.map((e) => e as String)?.toList() ?? [],
+      json['xdescription'] as String,
+      json['ydescription'] as String,
+      json['height'] as String,
+      json['category'] as String,
+      json['weight'] as String,
+      (json['typeofpokemon'] as List).map((e) => e as String? ?? '').toList(),
+      (json['weaknesses'] as List).map((e) => e as String? ?? '').toList(),
+      (json['evolutions'] as List).map((e) => e as String? ?? '').toList(),
+      (json['abilities'] as List).map((e) => e as String? ?? '').toList(),
       json['hp'] as num,
       json['attack'] as num,
       json['defense'] as num,
@@ -137,12 +137,12 @@ Pokemon _pokemonFromJson(Map<String, dynamic> json) {
       json['special_defense'] as num,
       json['speed'] as num,
       json['total'] as num,
-      json['male_percentage'] as String,
-      json['female_percentage'] as String,
+      json['male_percentage'] as String? ?? '',
+      json['female_percentage'] as String? ??'',
       json['genderless'] as num,
-      json['cycles'] as String ?? '',
+      json['cycles'] as String? ?? '',
       json['egg_groups'] as String,
       json['evolvedfrom'] as String,
-      json['reason'] as String ?? '',
-      json['base_exp'] as String ?? '0');
+      json['reason'] as String? ?? '',
+      json['base_exp'] as String? ?? '0');
 }

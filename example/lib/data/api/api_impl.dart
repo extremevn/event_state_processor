@@ -42,7 +42,6 @@ class ApiImpl implements Api {
         } catch (error) {
           throw ApiException.withMessage(message: error.toString());
         }
-        break;
       default:
         throw ApiException.unknown();
     }

@@ -11,15 +11,15 @@ import 'package:flutter/widgets.dart';
 
 class Stat extends StatelessWidget {
   const Stat({
-    @required this.animation,
-    @required this.label,
-    @required this.value,
-    this.progress,
+    required this.animation,
+    required this.label,
+    required this.value,
+    required this.progress,
   });
 
   final Animation animation;
   final String label;
-  final double progress;
+  final double? progress;
   final num value;
 
   @override
@@ -64,8 +64,8 @@ class PokemonBaseStats extends StatefulWidget {
 
 class _PokemonBaseStatsState extends State<PokemonBaseStats>
     with SingleTickerProviderStateMixin {
-  Animation<double> _animation;
-  AnimationController _controller;
+  late Animation<double> _animation;
+  late AnimationController _controller;
 
   Pokemon get pokemon => widget.pokemon;
 
@@ -102,32 +102,38 @@ class _PokemonBaseStatsState extends State<PokemonBaseStats>
       Stat(
           animation: _animation,
           label: Translations.of(context).text('hp'),
-          value: pokemon.hp),
+          value: pokemon.hp,
+          progress: null),
       SizedBox(height: context.responsive(14)),
       Stat(
           animation: _animation,
           label: Translations.of(context).text('attack'),
-          value: pokemon.attack),
+          value: pokemon.attack,
+          progress: null),
       SizedBox(height: context.responsive(14)),
       Stat(
           animation: _animation,
           label: Translations.of(context).text('defense'),
-          value: pokemon.defense),
+          value: pokemon.defense,
+          progress: null),
       SizedBox(height: context.responsive(14)),
       Stat(
           animation: _animation,
           label: Translations.of(context).text('sp_atk'),
-          value: pokemon.specialAttack),
+          value: pokemon.specialAttack,
+          progress: null),
       SizedBox(height: context.responsive(14)),
       Stat(
           animation: _animation,
           label: Translations.of(context).text('sp_def'),
-          value: pokemon.specialDefense),
+          value: pokemon.specialDefense,
+          progress: null),
       SizedBox(height: context.responsive(14)),
       Stat(
           animation: _animation,
           label: Translations.of(context).text('speed'),
-          value: pokemon.speed),
+          value: pokemon.speed,
+          progress: null),
       SizedBox(height: context.responsive(14)),
       Stat(
         animation: _animation,
@@ -138,9 +144,9 @@ class _PokemonBaseStatsState extends State<PokemonBaseStats>
     ];
   }
 
-  List<Widget> _buildEffectivenesses(BuildContext context) {
+  List<Widget> _buildEffectivenessList(BuildContext context) {
     final list = pokemon.types
-        .map((type) => PokemonType(PokemonTypesX.parse(type ?? ''),
+        .map((type) => PokemonType(PokemonTypesX.parse(type),
             large: true,
             colored: true,
             extra: Translations.of(context).text('extra')))
@@ -189,7 +195,7 @@ class _PokemonBaseStatsState extends State<PokemonBaseStats>
           Wrap(
             spacing: context.responsive(8),
             runSpacing: context.responsive(8),
-            children: _buildEffectivenesses(context),
+            children: _buildEffectivenessList(context),
           ),
         ],
       ),

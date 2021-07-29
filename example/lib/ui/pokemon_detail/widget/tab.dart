@@ -9,8 +9,8 @@ import 'package:example_event_state_processor/extensions/context.dart';
 
 class TabData {
   const TabData({
-    this.label,
-    this.builder,
+    required this.label,
+    required this.builder,
   });
 
   final Widget Function(Pokemon pokemon, Animation animation) builder;

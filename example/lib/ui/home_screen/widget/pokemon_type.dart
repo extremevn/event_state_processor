@@ -5,7 +5,7 @@ import 'package:example_event_state_processor/extensions/context.dart';
 class PokemonType extends StatelessWidget {
   const PokemonType(
     this.type, {
-    Key key,
+    Key? key,
     this.large = false,
     this.colored = false,
     this.extra = '',

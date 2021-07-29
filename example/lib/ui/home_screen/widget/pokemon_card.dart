@@ -13,15 +13,15 @@ class PokemonCard extends StatelessWidget {
 
   const PokemonCard(
     this.pokemon, {
-    this.onPress,
-    @required this.index,
+    required this.onPress,
+    required this.index,
   });
 
   final int index;
-  final GestureTapCallback onPress;
+  final GestureTapCallback? onPress;
   final Pokemon pokemon;
 
-  Widget _buildPokeballDecoration({@required double height}) {
+  Widget _buildPokeballDecoration({required double height}) {
     final pokeballSize = height * _pokeballFraction;
 
     return Positioned(
@@ -36,7 +36,7 @@ class PokemonCard extends StatelessWidget {
     );
   }
 
-  Widget _buildPokemon({@required double height}) {
+  Widget _buildPokemon({required double height}) {
     final pokemonSize = height * _pokemonFraction;
 
     return Positioned(
@@ -48,7 +48,6 @@ class PokemonCard extends StatelessWidget {
           imageUrl: pokemon.imageUrl,
           width: pokemonSize,
           height: pokemonSize,
-          imageRenderMethodForWeb: ImageRenderMethodForWeb.HtmlImage,
           useOldImageOnUrlChange: true,
           fit: BoxFit.contain,
           alignment: Alignment.bottomRight,
@@ -81,7 +80,7 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = parseColorPokemon(pokemon.types?.first ?? '');
+    final color = parseColorPokemon(pokemon.types.first);
     return LayoutBuilder(
       builder: (context, constrains) {
         final itemHeight = constrains.maxHeight;
@@ -124,7 +123,7 @@ class PokemonCard extends StatelessWidget {
 }
 
 class _CardContent extends StatelessWidget {
-  const _CardContent(this.pokemon, {Key key}) : super(key: key);
+  const _CardContent(this.pokemon, {Key? key}) : super(key: key);
 
   final Pokemon pokemon;
 
@@ -134,7 +133,7 @@ class _CardContent extends StatelessWidget {
         .map(
           (type) => Padding(
             padding: EdgeInsets.symmetric(vertical: context.responsive(3)),
-            child: PokemonType(PokemonTypesX.parse(type ?? '')),
+            child: PokemonType(PokemonTypesX.parse(type)),
           ),
         )
         .toList();

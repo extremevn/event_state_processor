@@ -13,7 +13,7 @@ class PokemonAbout extends StatelessWidget {
   final Animation _animation;
 
   Widget _buildSection(BuildContext context, String text,
-      {List<Widget> children, Widget child}) {
+      {List<Widget>? children, Widget? child}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

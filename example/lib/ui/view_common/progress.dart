@@ -5,7 +5,7 @@ import 'package:example_event_state_processor/extensions/context.dart';
 class ProgressBar extends StatelessWidget {
   const ProgressBar({
     this.color = AppColors.red,
-    @required this.progress,
+    required this.progress,
   });
 
   final Color color;

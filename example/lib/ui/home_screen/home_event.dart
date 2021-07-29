@@ -6,7 +6,7 @@ abstract class HomeEvent extends UiEvent {
 
 class LoadDataEvent extends HomeEvent {
   final int page;
-  const LoadDataEvent({this.page});
+  const LoadDataEvent({required this.page});
 }
 
 class LoadMoreButtonPressed extends HomeEvent {}

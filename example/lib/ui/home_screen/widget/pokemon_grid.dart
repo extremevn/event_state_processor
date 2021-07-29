@@ -8,14 +8,14 @@ import 'package:flutter/cupertino.dart';
 
 class PokemonGrid extends StatelessWidget {
   const PokemonGrid({
-    @required this.pokemons,
-    @required this.canLoadMore,
+    required this.pokemons,
+    required this.canLoadMore,
     this.controller,
-    @required this.onRefresh,
-    @required this.onSelectPokemon,
+    required this.onRefresh,
+    required this.onSelectPokemon,
   });
 
-  final ScrollController controller;
+  final ScrollController? controller;
   final List<Pokemon> pokemons;
   final bool canLoadMore;
   final Future Function() onRefresh;
@@ -53,7 +53,7 @@ class PokemonGrid extends StatelessWidget {
                 index: index,
                 onPress: () => onSelectPokemon(index, pokemons[index]),
               ),
-              childCount: pokemons?.length ?? 0,
+              childCount: pokemons.length,
             ),
           ),
         ),

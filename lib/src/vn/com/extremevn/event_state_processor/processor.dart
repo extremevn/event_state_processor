@@ -64,10 +64,10 @@ abstract class EventToStateProcessor<E extends UiEvent, S extends DataState>
 class ProcessorProvider<EP extends EventToStateProcessor<dynamic, dynamic>>
     extends BlocProvider<EP> {
   ProcessorProvider({
-    Key key,
-    @required CreateEventStateProcessorFun<EP> create,
-    Widget child,
-    bool lazy,
+    Key? key,
+    required CreateEventStateProcessorFun<EP> create,
+    Widget? child,
+    bool? lazy,
   }) : super(
           key: key,
           create: create,
@@ -93,9 +93,9 @@ class ProcessorProvider<EP extends EventToStateProcessor<dynamic, dynamic>>
   /// );
   /// ```
   ProcessorProvider.value({
-    Key key,
-    @required EP value,
-    Widget child,
+    Key? key,
+    required EP value,
+    Widget? child,
   }) : super(
           key: key,
           create: (_) => value,
@@ -162,9 +162,9 @@ class ProcessorProvider<EP extends EventToStateProcessor<dynamic, dynamic>>
 /// readability due to the reduction in nesting and boilerplate.
 class MultiProcessorProvider extends MultiBlocProvider {
   MultiProcessorProvider({
-    Key key,
-    @required List<ProcessorProvider> processorProviders,
-    Widget child,
+    Key? key,
+    required List<ProcessorProvider> processorProviders,
+    required Widget child,
   }) : super(
           key: key,
           providers: processorProviders,

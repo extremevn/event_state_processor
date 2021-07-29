@@ -1,5 +1,5 @@
 class User {
   String token;
   String id;
-  User({this.token, this.id});
+  User({required this.token, required this.id});
 }

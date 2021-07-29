@@ -27,7 +27,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// Base class for building screen ui
 abstract class CoreScreen<E extends UiEvent, S extends DataState,
     EP extends EventToStateProcessor<E, S>> extends StatelessWidget {
-  const CoreScreen({Key key}) : super(key: key);
+  const CoreScreen({Key? key}) : super(key: key);
 
   /// This method will be call whenever [processor] produce a new data state after processing received event from ui
   /// For ex: we can show dialog if new state is error data state
@@ -63,16 +63,8 @@ class _ScreenContentWidget<E extends UiEvent, S extends DataState,
   const _ScreenContentWidget(
     DataStateChangeHandler<E, S, EP> dataStateChangeHandler,
     ScreenContentBuilder<E, S, EP> screenContentBuilder, {
-    Key key,
-  })  : assert(
-          dataStateChangeHandler != null,
-          'A non-null screen ui content builder must be provided to a this widget.',
-        ),
-        assert(
-          screenContentBuilder != null,
-          'A non-null date state change handler function must be provided to a Text widget.',
-        ),
-        _dataStateChangeHandler = dataStateChangeHandler,
+    Key? key,
+  })  : _dataStateChangeHandler = dataStateChangeHandler,
         _screenContentBuilder = screenContentBuilder,
         super(key: key);
 
@@ -88,7 +80,7 @@ class _ScreenContentWidget<E extends UiEvent, S extends DataState,
 class _CoreWidgetStateState<E extends UiEvent, S extends DataState,
         EP extends EventToStateProcessor<E, S>>
     extends State<_ScreenContentWidget> {
-  EP _eventProcessor;
+  late EP _eventProcessor;
 
   @override
   void initState() {

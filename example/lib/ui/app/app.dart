@@ -11,7 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-AppEventProcessor appEventProcessor;
+late AppEventProcessor appEventProcessor;
 
 class App extends CoreScreen<AppEvent, AppDataState, AppEventProcessor> {
   @override

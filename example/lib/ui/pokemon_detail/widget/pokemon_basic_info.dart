@@ -20,7 +20,7 @@ class _PokemonOverallInfoState extends State<PokemonOverallInfo>
     with TickerProviderStateMixin {
   Pokemon get pokemon => widget.pokemon;
 
-  AnimationController _rotateController;
+  late AnimationController _rotateController;
 
   @override
   void initState() {

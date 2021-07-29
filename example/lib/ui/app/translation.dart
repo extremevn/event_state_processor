@@ -9,15 +9,18 @@ class Translations {
   }
 
   Locale locale;
-  static Map<String, dynamic> _localizedValues;
+  static Map<String, dynamic>? _localizedValues;
 
   static Translations of(BuildContext context) {
-    return Localizations.of<Translations>(context, Translations);
+    return Localizations.of<Translations>(context, Translations) ?? Translations(const Locale('en'));
   }
 
   String text(String key) {
-    return _localizedValues[key] != null
-        ? _localizedValues[key] as String
+    if(_localizedValues == null) {
+      return '** $key not found';
+    }
+    return _localizedValues![key] != null
+        ? _localizedValues![key] as String
         : '** $key not found';
   }
 

@@ -1,4 +1,3 @@
-import 'package:example_event_state_processor/configs/colors.dart';
 import 'package:example_event_state_processor/configs/images.dart';
 import 'package:example_event_state_processor/domain/pojo/pokemon.dart';
 import 'package:example_event_state_processor/ui/pokemon_detail/widget/animated_fade.dart';
@@ -27,9 +26,9 @@ class _PokemonDetailState extends State<PokemonDetail>
 
   double _cardMinHeight = 0.0;
   double _cardMaxHeight = 0.0;
-  AnimationController _cardController;
-  AnimationController _cardHeightController;
-  AnimationController _rotateController;
+  late AnimationController _cardController;
+  late AnimationController _cardHeightController;
+  late AnimationController _rotateController;
 
   @override
   void dispose() {
@@ -58,12 +57,12 @@ class _PokemonDetailState extends State<PokemonDetail>
     );
     _rotateController.repeat();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       final screenHeight = context.screenSize.height;
       final appBarHeight = AppBar().preferredSize.height;
 
       final pokemonInfoBox =
-          _pokemonInfoKey.currentContext.findRenderObject() as RenderBox;
+          _pokemonInfoKey.currentContext!.findRenderObject() as RenderBox;
 
       _cardMinHeight = screenHeight - pokemonInfoBox.size.height;
       _cardMaxHeight = screenHeight - appBarHeight - context.padding.top;
@@ -78,9 +77,7 @@ class _PokemonDetailState extends State<PokemonDetail>
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       constraints: const BoxConstraints.expand(),
-      color: parseColorPokemon(widget.pokemon.types?.first ?? '') ??
-          AppColors.teal,
-    );
+      color: parseColorPokemon(widget.pokemon.types.first));
   }
 
   Widget _buildBoxDecoration() {
@@ -114,7 +111,7 @@ class _PokemonDetailState extends State<PokemonDetail>
   Widget _buildAppBarPokeballDecoration() {
     final appBarHeight = AppBar().preferredSize.height;
     final screenSize = context.screenSize;
-    final iconSize = context.iconSize;
+    final iconSize = context.iconSize ?? 24;
 
     final pokeSize = screenSize.width * 0.448;
     final pokeTop = -(pokeSize / 2 - (iconSize / 2 + appBarHeight));
