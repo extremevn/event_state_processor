@@ -9,8 +9,10 @@ import 'package:example_event_state_processor/ui/pokemon_detail/pokemon_detail_s
 import 'package:example_event_state_processor/ui/view_common/loading_indicator_widget.dart';
 import 'package:flutter/material.dart';
 
+//ignore: must_be_immutable
 class HomeScreen
     extends CoreScreen<HomeEvent, HomeDataState, HomeEventProcessor> {
+
   @override
   void handleDataStateChange(BuildContext context, HomeEventProcessor processor,
       HomeDataState state) {}
@@ -19,7 +21,6 @@ class HomeScreen
   HomeEventProcessor createEventProcessor(BuildContext context) {
     return HomeEventProcessor();
   }
-
   @override
   Widget buildScreenUi(
       BuildContext context, HomeEventProcessor processor, HomeDataState state) {
@@ -32,7 +33,7 @@ class HomeScreen
       body: SafeArea(
         child: Stack(
           children: [
-            _mainContentWidget(context, processor, state),
+            _mainContentWidget(),
             if (state.isLoading) LoadingIndicatorWidget(),
           ],
         ),
@@ -40,11 +41,10 @@ class HomeScreen
     );
   }
 
-  Widget _mainContentWidget(
-      BuildContext context, HomeEventProcessor processor, HomeDataState state) {
+  Widget _mainContentWidget() {
     return PokemonGrid(
-      pokemons: state.pokemons ?? <Pokemon>[],
-      canLoadMore: state.currentPage < 1,
+      pokemons: currentState.pokemons ?? <Pokemon>[],
+      canLoadMore: currentState.currentPage < 1,
       onRefresh: () async {
         debugPrint('onRefresh data');
       },

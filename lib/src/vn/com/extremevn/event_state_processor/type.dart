@@ -23,7 +23,10 @@ import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/p
 import 'package:flutter/widgets.dart';
 
 /// Function alias which take [context] for creating EventStateProcessor
-typedef CreateEventStateProcessorFun<B> = B Function(BuildContext context);
+typedef CreateEventStateProcessorFun<EP> = EP Function(BuildContext context);
+
+/// Function alias which take [requestData] for processor request screen do some action for result. For example: navigate to new screen
+typedef RequestHandler = Future<ResultData> Function(RequestData requestData);
 
 /// Callback function alias which handles logic when there is changes in data state
 typedef DataStateChangeHandler<E extends UiEvent, S extends DataState,
@@ -44,4 +47,26 @@ abstract class DataState {
 /// Base class for define ui event
 abstract class UiEvent {
   const UiEvent();
+}
+
+/// Base class for define ui event
+class RequestData {
+  final Object? data;
+  final int code;
+
+  const RequestData({this.data, required this.code});
+}
+
+class ResultData {
+  final Object? data;
+  final int code;
+
+  const ResultData({this.data, required this.code});
+
+  ResultData.succeed({this.data}) : code = resultSucceed;
+
+  ResultData.failed({this.data}) : code = resultFailed;
+
+  static const int resultSucceed = 1;
+  static const int resultFailed = 0;
 }

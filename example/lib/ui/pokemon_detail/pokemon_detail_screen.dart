@@ -10,7 +10,7 @@ class PokemonDetailScreen extends CoreScreen<PokemonDetailEvent,
     PokemonDetailState, PokemonDetailEventProcessor> {
   final Pokemon pokemonDetail;
 
-  const PokemonDetailScreen(this.pokemonDetail);
+  PokemonDetailScreen(this.pokemonDetail);
 
   @override
   void handleDataStateChange(BuildContext context,

@@ -25,9 +25,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// Base class for building screen ui
+//ignore: must_be_immutable
 abstract class CoreScreen<E extends UiEvent, S extends DataState,
-    EP extends EventToStateProcessor<E, S>> extends StatelessWidget {
-  const CoreScreen({Key? key}) : super(key: key);
+    EP extends EventToStateProcessor<E, S>> extends StatefulWidget {
+  CoreScreen({Key? key}) : super(key: key);
+
+  /// Processor for current screen
+  late EP _processor;
+
+  /// Processor getter
+  EP get processor => _processor;
+
+  /// Current state getter
+  S get currentState => _processor.state;
+
+  /// Shortcut access to current build context
+  late BuildContext _context;
+
+  /// Public getter for current build context
+  BuildContext get context => _context;
+
+  /// TickerProvider for animation uses
+  late TickerProvider _tickerProvider;
+
+  /// TickerProvider public getter for animation uses
+  TickerProvider get tickerProvider => _tickerProvider;
+
+  /// Util getter for whether screen is current active
+  bool get isCurrentActive => ModalRoute.of(context)?.isCurrent ?? false;
+
+  EP _internalCreateEventProcessor(BuildContext context) {
+    _processor = createEventProcessor(context);
+    _processor.requestHandler = handleRequest;
+    return _processor;
+  }
 
   /// This method will be call whenever [processor] produce a new data state after processing received event from ui
   /// For ex: we can show dialog if new state is error data state
@@ -46,20 +77,61 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
   ///	```if (state.isLoading) LoadingIndicatorWidget() else Container()```
   Widget buildScreenUi(BuildContext context, EP processor, S state);
 
+  Widget _internalbuildScreenUi(BuildContext context, EP processor, S state) {
+    _context = context;
+    return buildScreenUi(context, processor, state);
+  }
+
+  /// This method for handle request from processor or others return data for example: navigate to new screen and wait for result
+  Future<ResultData> handleRequest(RequestData requestData) {
+    // do nothing here
+    return Future.value(ResultData.succeed());
+  }
+
+  /// Call when screen which is statefull widget init its state
+  void onScreenInit() {
+    // do nothing here
+  }
+
+  /// Call when screen which is statefull widget dispose
+  void onScreenDisposed() {
+    // do nothing here
+  }
+
+  @override
+  State<CoreScreen<E, S, EP>> createState() => _CoreScreenState<E, S, EP>();
+}
+
+class _CoreScreenState<E extends UiEvent, S extends DataState,
+        EP extends EventToStateProcessor<E, S>>
+    extends State<CoreScreen<E, S, EP>> with TickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+    widget._tickerProvider = this;
+    widget.onScreenInit();
+  }
+
+  @override
+  void dispose() {
+    widget.onScreenDisposed();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<EP>(
-      create: createEventProcessor,
+      create: widget._internalCreateEventProcessor,
       child: _ScreenContentWidget<E, S, EP>(
-        handleDataStateChange,
-        buildScreenUi,
+        widget.handleDataStateChange,
+        widget._internalbuildScreenUi,
       ),
     );
   }
 }
 
 class _ScreenContentWidget<E extends UiEvent, S extends DataState,
-    EP extends EventToStateProcessor<E, S>> extends StatefulWidget {
+    EP extends EventToStateProcessor<E, S>> extends StatelessWidget {
   const _ScreenContentWidget(
     DataStateChangeHandler<E, S, EP> dataStateChangeHandler,
     ScreenContentBuilder<E, S, EP> screenContentBuilder, {
@@ -72,36 +144,20 @@ class _ScreenContentWidget<E extends UiEvent, S extends DataState,
   final ScreenContentBuilder<E, S, EP> _screenContentBuilder;
 
   @override
-  _CoreWidgetStateState createState() {
-    return _CoreWidgetStateState<E, S, EP>();
-  }
-}
-
-class _CoreWidgetStateState<E extends UiEvent, S extends DataState,
-        EP extends EventToStateProcessor<E, S>>
-    extends State<_ScreenContentWidget> {
-  late EP _eventProcessor;
-
-  @override
-  void initState() {
-    _eventProcessor = BlocProvider.of<EP>(context);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final _eventProcessor = BlocProvider.of<EP>(context);
     // Get screen args here for init screen's variable value;
     // Listen for state change and build screen ui
     return BlocListener<EP, S>(
         bloc: _eventProcessor,
         listener: (context, state) {
-          widget._dataStateChangeHandler.call(context, _eventProcessor, state);
+          _dataStateChangeHandler.call(context, _eventProcessor, state);
         },
         child: BlocBuilder(
             bloc: _eventProcessor,
             builder: (context, state) {
-              return widget._screenContentBuilder
-                  .call(context, _eventProcessor, state as S);
+              return _screenContentBuilder.call(
+                  context, _eventProcessor, state as S);
             }));
   }
 }

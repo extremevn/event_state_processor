@@ -8,6 +8,7 @@ import 'package:example_event_state_processor/ui/home_screen/home_state.dart';
 
 class HomeEventProcessor
     extends EventToStateProcessor<HomeEvent, HomeDataState> {
+
   HomeEventProcessor()
       : super(const HomeDataState(
             isInit: true, isLoading: false, pokemons: [], currentPage: 0));

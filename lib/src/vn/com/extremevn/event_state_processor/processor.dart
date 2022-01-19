@@ -19,6 +19,8 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 
+import 'dart:async';
+
 import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/type.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 abstract class EventToStateProcessor<E extends UiEvent, S extends DataState>
     extends Bloc<E, S> {
   EventToStateProcessor(S initialState) : super(initialState);
+
+  late RequestHandler requestHandler;
 
   @override
   Stream<S> mapEventToState(
@@ -43,6 +47,11 @@ abstract class EventToStateProcessor<E extends UiEvent, S extends DataState>
   /// Send|Raise `UiEvent` [event] for processing in 'processEvent' function
   void raiseEvent(E event) {
     add(event);
+  }
+
+  /// Send|Raise `UiEvent` [event] for processing in 'processEvent' function
+  Future<ResultData> request(RequestData requestData) {
+    return requestHandler.call(requestData);
   }
 }
 
@@ -63,11 +72,11 @@ abstract class EventToStateProcessor<E extends UiEvent, S extends DataState>
 /// ```
 class ProcessorProvider<EP extends EventToStateProcessor<dynamic, dynamic>>
     extends BlocProvider<EP> {
-  ProcessorProvider({
+  const ProcessorProvider({
     Key? key,
     required CreateEventStateProcessorFun<EP> create,
     Widget? child,
-    bool? lazy,
+    bool lazy = true,
   }) : super(
           key: key,
           create: create,
