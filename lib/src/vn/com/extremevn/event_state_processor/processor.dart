@@ -34,9 +34,7 @@ abstract class EventToStateProcessor<E extends UiEvent, S extends DataState>
   late RequestHandler requestHandler;
 
   @override
-  Stream<S> mapEventToState(
-    E event,
-  ) {
+  Stream<S> mapEventToState(E event,) {
     return processEvent(event);
   }
 
@@ -78,11 +76,11 @@ class ProcessorProvider<EP extends EventToStateProcessor<dynamic, dynamic>>
     Widget? child,
     bool lazy = true,
   }) : super(
-          key: key,
-          create: create,
-          child: child,
-          lazy: lazy,
-        );
+    key: key,
+    create: create,
+    child: child,
+    lazy: lazy,
+  );
 
   /// Takes a [EventToStateProcessor] and a [child] which will have access to the [EventToStateProcessor] via
   /// `BlocProvider.of(context)`.
@@ -106,10 +104,10 @@ class ProcessorProvider<EP extends EventToStateProcessor<dynamic, dynamic>>
     required EP value,
     Widget? child,
   }) : super(
-          key: key,
-          create: (_) => value,
-          child: child,
-        );
+    key: key,
+    create: (_) => value,
+    child: child,
+  );
 
   /// Method that allows widgets to access a [EventToStateProcessor] instance as long as their
   /// `BuildContext` contains a [ProcessorProvider] instance.
@@ -175,8 +173,8 @@ class MultiProcessorProvider extends MultiBlocProvider {
     required List<ProcessorProvider> processorProviders,
     required Widget child,
   }) : super(
-          key: key,
-          providers: processorProviders,
-          child: child,
-        );
+    key: key,
+    providers: processorProviders,
+    child: child,
+  );
 }

@@ -1,6 +1,6 @@
 name: eventstateprocessor
 description: A Flutter package that wrap flutter bloc package for clearer implementation
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/extremevn/event_state_processor
 
 environment:
@@ -10,9 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^7.1.0
-  pedantic: ^1.11.1
 
 dev_dependencies:
+  flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
 

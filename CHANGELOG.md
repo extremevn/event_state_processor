@@ -24,3 +24,7 @@ Updates:
   - Processor and currentState quick access
 - Added 'request call' from processor to screen for some purpose like: navigation ...
 - Updated example code
+
+# [1.0.1] - 2022/02/28
+Updates:
+- Fix issue: 'processor' not initialize when 'hot reload' only, not in production app 

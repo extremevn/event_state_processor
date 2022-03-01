@@ -77,8 +77,9 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
   ///	```if (state.isLoading) LoadingIndicatorWidget() else Container()```
   Widget buildScreenUi(BuildContext context, EP processor, S state);
 
-  Widget _internalbuildScreenUi(BuildContext context, EP processor, S state) {
+  Widget _internalBuildScreenUi(BuildContext context, EP processor, S state) {
     _context = context;
+    _processor = processor;
     return buildScreenUi(context, processor, state);
   }
 
@@ -124,7 +125,7 @@ class _CoreScreenState<E extends UiEvent, S extends DataState,
       create: widget._internalCreateEventProcessor,
       child: _ScreenContentWidget<E, S, EP>(
         widget.handleDataStateChange,
-        widget._internalbuildScreenUi,
+        widget._internalBuildScreenUi,
       ),
     );
   }
