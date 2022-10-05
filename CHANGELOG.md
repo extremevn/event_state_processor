@@ -28,3 +28,9 @@ Updates:
 # [1.0.1] - 2022/02/28
 Updates:
 - Fix issue: 'processor' not initialize when 'hot reload' only, not in production app 
+
+
+# [1.1.0] - 2022/10/05
+Updates:
+- Migrate flutter_bloc to 8.1.1
+- Add StateEmitter class for simple state producer usages
