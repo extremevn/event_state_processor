@@ -8,8 +8,9 @@ class AppEventProcessor extends EventToStateProcessor<AppEvent, AppDataState> {
     on<AppStarted>(onAppStared);
   }
 
-  Future<void> onAppStared(AppStarted event, Emitter emitter) async {
+  Future<void> onAppStared(
+      AppStarted event, Emitter<AppDataState> emitter) async {
     await Future.delayed(const Duration(milliseconds: 4000));
-    emitter.call(state.copy(newState: AppState.home));
+    updateState(emitter, state.copy(newState: AppState.home));
   }
 }

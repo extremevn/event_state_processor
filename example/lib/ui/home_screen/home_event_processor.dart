@@ -31,7 +31,7 @@ class HomeEventProcessor
   @override
   void onCatchException(
       dynamic exceptionOrError, Emitter<HomeDataState> emitter) {
-    emitter.call(
+    updateState(emitter,
         state.copy(isLoading: false, error: exceptionOrError as ApiException));
   }
 }

@@ -49,14 +49,43 @@ abstract class EventToStateProcessor<E extends UiEvent, S extends DataState>
   /// Catch Exception or Error when event handler throw exception or error
   void onCatchException(dynamic exceptionOrError, Emitter<S> emitter) {}
 
-  /// Send|Raise `UiEvent` [event] for processing in 'processEvent' function
+  /// Send|Raise `UiEvent` [event] for processing in 'on<XXX>' handler function
   void raiseEvent(E event) {
     add(event);
+  }
+
+  /// Send|Update [state] for UI
+  void updateState(Emitter<S> emitter, S newState) {
+    emitter.call(newState);
   }
 
   /// Send|Raise `UiEvent` [event] for processing in 'processEvent' function
   Future<ResultData> request(RequestData requestData) {
     return requestHandler.call(requestData);
+  }
+}
+
+/// A [StateEmitter] is similar to [EventToStateProcessor] but has no notion of events
+/// and relies on methods to [emit] new states.
+///
+/// Every [StateEmitter] requires an initial state which will be the
+/// state of the [StateEmitter] before [emit] has been called.
+///
+/// The current state of a [StateEmitter] can be accessed via the [state] getter.
+///
+/// ```dart
+/// class CounterStateEmitter extends StateEmitter<int> {
+///   CounterCubit() : super(0);
+///
+///   void increment() => updateState(state + 1);
+/// }
+/// ```
+class StateEmitter<S> extends Cubit<S> {
+  StateEmitter(S initialState) : super(initialState);
+
+  /// Send|Update [state] for UI
+  void updateState(S newState) {
+    emit(newState);
   }
 }
 
