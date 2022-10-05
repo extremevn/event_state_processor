@@ -6,6 +6,7 @@ import 'package:example_event_state_processor/ui/pokemon_detail/pokemon_detail_s
 import 'package:example_event_state_processor/ui/pokemon_detail/widget/pokemon_detail.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class PokemonDetailScreen extends CoreScreen<PokemonDetailEvent,
     PokemonDetailState, PokemonDetailEventProcessor> {
   final Pokemon pokemonDetail;
@@ -13,17 +14,12 @@ class PokemonDetailScreen extends CoreScreen<PokemonDetailEvent,
   PokemonDetailScreen(this.pokemonDetail);
 
   @override
-  void handleDataStateChange(BuildContext context,
-      PokemonDetailEventProcessor processor, PokemonDetailState state) {}
-
-  @override
   PokemonDetailEventProcessor createEventProcessor(BuildContext context) {
     return PokemonDetailEventProcessor();
   }
 
   @override
-  Widget buildScreenUi(BuildContext context,
-      PokemonDetailEventProcessor processor, PokemonDetailState state) {
+  Widget buildScreenUi(BuildContext context) {
     return PokemonDetail(pokemonDetail);
   }
 }

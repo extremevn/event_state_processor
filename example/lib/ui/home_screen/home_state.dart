@@ -9,18 +9,20 @@ class HomeDataState extends DataState {
   final List<Pokemon>? pokemons;
   final int currentPage;
 
-  const HomeDataState({required this.isInit,
+  const HomeDataState({
+    required this.isInit,
     required this.isLoading,
     required this.currentPage,
     this.pokemons,
     this.error,
   });
 
-  HomeDataState copy({bool? isInit,
-    bool? isLoading,
-    ApiException? error,
-    List<Pokemon>? dataPokemon,
-    int? currentPage}) {
+  HomeDataState copy(
+      {bool? isInit,
+      bool? isLoading,
+      ApiException? error,
+      List<Pokemon>? dataPokemon,
+      int? currentPage}) {
     return HomeDataState(
         isInit: isInit ?? this.isInit,
         isLoading: isLoading ?? this.isLoading,

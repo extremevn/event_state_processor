@@ -18,26 +18,33 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
-
-import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/processor.dart';
 import 'package:flutter/widgets.dart';
 
 /// Function alias which take [context] for creating EventStateProcessor
 typedef CreateEventStateProcessorFun<EP> = EP Function(BuildContext context);
 
-/// Function alias which take [requestData] for processor request screen do some action for result. For example: navigate to new screen
+/// Function alias which take [requestData] for processor request screen do
+/// some action for result. For example: navigate to new screen
 typedef RequestHandler = Future<ResultData> Function(RequestData requestData);
 
-/// Callback function alias which handles logic when there is changes in data state
-typedef DataStateChangeHandler<E extends UiEvent, S extends DataState,
-        EP extends EventToStateProcessor<E, S>>
-    = void Function(BuildContext context, EP processor, S state);
+/// Function which takes the previous `state` and
+/// the current `state`, it is responsible for returning a [bool] which
+/// determines whether to rebuild with the current `state`.
+typedef RebuildWidgetOnStateChangeCondition<S> = bool Function(
+    S previous, S current);
 
-/// Function alias which take [context] for build main screen ui base on [state]
-/// and can raise event by using [processor]
-typedef ScreenContentBuilder<E extends UiEvent, S extends DataState,
-        EP extends EventToStateProcessor<E, S>>
-    = Widget Function(BuildContext context, EP processor, S state);
+/// Function which takes the previous `state`
+/// and the current `state` and is responsible for returning a [bool] which
+/// determines whether or not to call listener function with the current `state`.
+typedef RaiseListenerOnCondition<S> = bool Function(S previous, S current);
+
+/// Function which take current state of [CoreScreen] - in other words which is
+/// current state of processor and is responsible for returning a selected
+/// value, [T], based on [state].
+typedef SelectorFunction<T> = T Function();
+
+/// Function is responsible for returning a widget
+typedef ReturnWidgetFunction = Widget Function();
 
 /// Base class for define data state
 abstract class DataState {

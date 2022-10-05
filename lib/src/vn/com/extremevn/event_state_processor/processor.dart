@@ -18,7 +18,6 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
-
 import 'dart:async';
 
 import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/type.dart';
@@ -33,14 +32,22 @@ abstract class EventToStateProcessor<E extends UiEvent, S extends DataState>
 
   late RequestHandler requestHandler;
 
+  /// Register event handler for an event of type `E`.
+  /// There should only ever be one event handler per event type `E`.
   @override
-  Stream<S> mapEventToState(E event,) {
-    return processEvent(event);
+  void on<Event extends E>(EventHandler<Event, S> handler,
+      {EventTransformer<Event>? transformer}) {
+    super.on<Event>((event, emitter) async {
+      try {
+        await handler.call(event, emitter);
+      } catch (ex) {
+        onCatchException(ex, emitter);
+      }
+    });
   }
 
-  /// Takes a `Stream` of `UiEvent` [event] as input
-  /// and transforms them into a `Stream` of `DataState` as output.
-  Stream<S> processEvent(E event);
+  /// Catch Exception or Error when event handler throw exception or error
+  void onCatchException(dynamic exceptionOrError, Emitter<S> emitter) {}
 
   /// Send|Raise `UiEvent` [event] for processing in 'processEvent' function
   void raiseEvent(E event) {
@@ -76,11 +83,11 @@ class ProcessorProvider<EP extends EventToStateProcessor<dynamic, dynamic>>
     Widget? child,
     bool lazy = true,
   }) : super(
-    key: key,
-    create: create,
-    child: child,
-    lazy: lazy,
-  );
+          key: key,
+          create: create,
+          child: child,
+          lazy: lazy,
+        );
 
   /// Takes a [EventToStateProcessor] and a [child] which will have access to the [EventToStateProcessor] via
   /// `BlocProvider.of(context)`.
@@ -104,10 +111,10 @@ class ProcessorProvider<EP extends EventToStateProcessor<dynamic, dynamic>>
     required EP value,
     Widget? child,
   }) : super(
-    key: key,
-    create: (_) => value,
-    child: child,
-  );
+          key: key,
+          create: (_) => value,
+          child: child,
+        );
 
   /// Method that allows widgets to access a [EventToStateProcessor] instance as long as their
   /// `BuildContext` contains a [ProcessorProvider] instance.
@@ -173,8 +180,8 @@ class MultiProcessorProvider extends MultiBlocProvider {
     required List<ProcessorProvider> processorProviders,
     required Widget child,
   }) : super(
-    key: key,
-    providers: processorProviders,
-    child: child,
-  );
+          key: key,
+          providers: processorProviders,
+          child: child,
+        );
 }

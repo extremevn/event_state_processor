@@ -10,7 +10,8 @@ class ApiException implements Exception {
   ApiException.withMessage(
       {this.code = unknownErrorCode, required this.message});
 
-  ApiException.noInternet({this.code = networkErrorCode, this.message = 'No internet connection'});
+  ApiException.noInternet(
+      {this.code = networkErrorCode, this.message = 'No internet connection'});
 
   static const int unknownErrorCode = 7000;
   static const int networkErrorCode = 9000;

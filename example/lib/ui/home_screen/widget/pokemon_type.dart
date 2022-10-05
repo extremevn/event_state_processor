@@ -1,6 +1,6 @@
 import 'package:example_event_state_processor/domain/pojo/pokemon_types.dart';
-import 'package:flutter/material.dart';
 import 'package:example_event_state_processor/extensions/context.dart';
+import 'package:flutter/material.dart';
 
 class PokemonType extends StatelessWidget {
   const PokemonType(

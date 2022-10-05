@@ -1,10 +1,9 @@
 import 'package:example_event_state_processor/configs/colors.dart';
 import 'package:example_event_state_processor/configs/images.dart';
 import 'package:example_event_state_processor/domain/pojo/pokemon.dart';
+import 'package:example_event_state_processor/extensions/context.dart';
 import 'package:example_event_state_processor/ui/app/translation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:example_event_state_processor/extensions/context.dart';
 
 class PokemonAbout extends StatelessWidget {
   const PokemonAbout(this._pokemon, this._animation);

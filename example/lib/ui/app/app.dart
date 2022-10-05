@@ -13,10 +13,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 late AppEventProcessor appEventProcessor;
 
+// ignore: must_be_immutable
 class App extends CoreScreen<AppEvent, AppDataState, AppEventProcessor> {
   @override
-  Widget buildScreenUi(
-      BuildContext context, AppEventProcessor processor, AppDataState state) {
+  Widget buildScreenUi(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -36,7 +36,7 @@ class App extends CoreScreen<AppEvent, AppDataState, AppEventProcessor> {
       supportedLocales: const [
         Locale('en'),
       ],
-      home: _getScreen(state),
+      home: buildStateBuilderWidget(builder: _getScreen),
     );
   }
 
@@ -47,12 +47,8 @@ class App extends CoreScreen<AppEvent, AppDataState, AppEventProcessor> {
     return appEventProcessor;
   }
 
-  @override
-  void handleDataStateChange(
-      BuildContext context, AppEventProcessor processor, AppDataState state) {}
-
-  Widget _getScreen(AppDataState appDataState) {
-    switch (appDataState.state) {
+  Widget _getScreen() {
+    switch (state.appState) {
       case AppState.uninitialized:
         return SplashScreen();
       case AppState.home:

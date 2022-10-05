@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:example_event_state_processor/domain/pojo/pokemon.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:http/http.dart' as http;
 
 import 'api.dart';
 import 'api_exception.dart';

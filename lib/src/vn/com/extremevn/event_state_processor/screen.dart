@@ -18,9 +18,9 @@
 /// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
-
 import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/processor.dart';
 import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/type.dart';
+import 'package:eventstateprocessor/src/vn/com/extremevn/event_state_processor/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,6 +45,9 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
   /// Public getter for current build context
   BuildContext get context => _context;
 
+  /// Public getter for current build state
+  S get state => _processor.state;
+
   /// TickerProvider for animation uses
   late TickerProvider _tickerProvider;
 
@@ -60,27 +63,18 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
     return _processor;
   }
 
-  /// This method will be call whenever [processor] produce a new data state after processing received event from ui
-  /// For ex: we can show dialog if new state is error data state
-  /// ```
-  ///	if (newState.error != null) {
-  ///	  showAlertDialog(context, Text(state.error.message));
-  ///	}
-  ///	```
-  void handleDataStateChange(BuildContext context, EP processor, S state);
-
   /// Create & return `EventToStateProcessor` instance for use in this widget or its child. For ex:
   /// ```return LoginEventProcessor();```
   EP createEventProcessor(BuildContext context);
 
   /// This method for build screen ui base on current data state. For ex: if state is `state.isLoading` is true then show ProgressBar
   ///	```if (state.isLoading) LoadingIndicatorWidget() else Container()```
-  Widget buildScreenUi(BuildContext context, EP processor, S state);
+  Widget buildScreenUi(BuildContext context);
 
-  Widget _internalBuildScreenUi(BuildContext context, EP processor, S state) {
+  Widget _internalBuildScreenUi(BuildContext context) {
     _context = context;
-    _processor = processor;
-    return buildScreenUi(context, processor, state);
+    _processor = context.read<EP>();
+    return buildScreenUi(context);
   }
 
   /// This method for handle request from processor or others return data for example: navigate to new screen and wait for result
@@ -97,6 +91,54 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
   /// Call when screen which is statefull widget dispose
   void onScreenDisposed() {
     // do nothing here
+  }
+
+  Widget buildStateBuilderWidget(
+      {Key? key,
+      required ReturnWidgetFunction builder,
+      RebuildWidgetOnStateChangeCondition<S>? rebuildOnCondition}) {
+    return StateBuilderWidget<EP, S>(
+        key: key,
+        builder: (_, __) => builder.call(),
+        rebuildOnCondition: rebuildOnCondition);
+  }
+
+  Widget buildStateConsumerWidget(
+      {Key? key,
+      required ReturnWidgetFunction builder,
+      required VoidCallback listener,
+      required Widget child,
+      RebuildWidgetOnStateChangeCondition<S>? rebuildOnCondition,
+      RaiseListenerOnCondition<S>? listenOnCondition}) {
+    return StateConsumerWidget<EP, S>(
+        key: key,
+        builder: (_, __) => builder.call(),
+        listener: (_, __) => listener.call(),
+        rebuildOnCondition: rebuildOnCondition,
+        listenOnCondition: listenOnCondition);
+  }
+
+  Widget buildStateListenerWidget(
+      {Key? key,
+      required VoidCallback listener,
+      required Widget child,
+      RaiseListenerOnCondition<S>? listenOnCondition}) {
+    return StateListenerWidget<EP, S>(
+        key: key,
+        listener: (_, __) => listener.call(),
+        listenOnCondition: listenOnCondition,
+        child: child);
+  }
+
+  Widget buildStateSelectorWidget<T>({
+    Key? key,
+    required SelectorFunction<T> selector,
+    required ReturnWidgetFunction builder,
+  }) {
+    return StateSelectorWidget<EP, S, T>(
+        key: key,
+        builder: (_, __) => builder.call(),
+        selector: (S) => selector.call());
   }
 
   @override
@@ -121,44 +163,26 @@ class _CoreScreenState<E extends UiEvent, S extends DataState,
 
   @override
   Widget build(BuildContext context) {
+    widget._tickerProvider = this;
     return BlocProvider<EP>(
-      create: widget._internalCreateEventProcessor,
-      child: _ScreenContentWidget<E, S, EP>(
-        widget.handleDataStateChange,
-        widget._internalBuildScreenUi,
-      ),
-    );
+        create: widget._internalCreateEventProcessor,
+        child: _ScreenContent(widget._internalBuildScreenUi));
   }
 }
 
-class _ScreenContentWidget<E extends UiEvent, S extends DataState,
+class _ScreenContent<E extends UiEvent, S extends DataState,
     EP extends EventToStateProcessor<E, S>> extends StatelessWidget {
-  const _ScreenContentWidget(
-    DataStateChangeHandler<E, S, EP> dataStateChangeHandler,
-    ScreenContentBuilder<E, S, EP> screenContentBuilder, {
+  const _ScreenContent(
+    this._screenContentBuilder, {
     Key? key,
-  })  : _dataStateChangeHandler = dataStateChangeHandler,
-        _screenContentBuilder = screenContentBuilder,
-        super(key: key);
+  }) : super(key: key);
 
-  final DataStateChangeHandler<E, S, EP> _dataStateChangeHandler;
-  final ScreenContentBuilder<E, S, EP> _screenContentBuilder;
+  final WidgetBuilder _screenContentBuilder;
 
   @override
   Widget build(BuildContext context) {
-    final _eventProcessor = BlocProvider.of<EP>(context);
     // Get screen args here for init screen's variable value;
     // Listen for state change and build screen ui
-    return BlocListener<EP, S>(
-        bloc: _eventProcessor,
-        listener: (context, state) {
-          _dataStateChangeHandler.call(context, _eventProcessor, state);
-        },
-        child: BlocBuilder(
-            bloc: _eventProcessor,
-            builder: (context, state) {
-              return _screenContentBuilder.call(
-                  context, _eventProcessor, state as S);
-            }));
+    return _screenContentBuilder.call(context);
   }
 }

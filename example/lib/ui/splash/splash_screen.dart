@@ -1,6 +1,5 @@
 import 'package:example_event_state_processor/configs/images.dart';
 import 'package:example_event_state_processor/ui/app/translation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {

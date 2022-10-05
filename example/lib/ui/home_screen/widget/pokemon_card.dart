@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:example_event_state_processor/configs/images.dart';
 import 'package:example_event_state_processor/domain/pojo/pokemon.dart';
 import 'package:example_event_state_processor/domain/pojo/pokemon_types.dart';
+import 'package:example_event_state_processor/extensions/context.dart';
 import 'package:example_event_state_processor/ui/home_screen/widget/pokemon_type.dart';
 import 'package:example_event_state_processor/ui/util.dart';
 import 'package:flutter/material.dart';
-import 'package:example_event_state_processor/extensions/context.dart';
 
 class PokemonCard extends StatelessWidget {
   static const double _pokeballFraction = 0.75;

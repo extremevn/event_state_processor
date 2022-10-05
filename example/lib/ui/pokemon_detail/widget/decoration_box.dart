@@ -1,6 +1,7 @@
 import 'dart:math';
-import 'package:flutter/material.dart';
+
 import 'package:example_event_state_processor/extensions/context.dart';
+import 'package:flutter/material.dart';
 
 class DecorationBox extends StatelessWidget {
   static const double boxSizeFraction = 0.176;

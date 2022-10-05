@@ -1,6 +1,6 @@
 import 'package:example_event_state_processor/configs/colors.dart';
-import 'package:flutter/material.dart';
 import 'package:example_event_state_processor/extensions/context.dart';
+import 'package:flutter/material.dart';
 
 class ProgressBar extends StatelessWidget {
   const ProgressBar({

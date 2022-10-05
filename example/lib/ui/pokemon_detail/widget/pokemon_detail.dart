@@ -1,5 +1,6 @@
 import 'package:example_event_state_processor/configs/images.dart';
 import 'package:example_event_state_processor/domain/pojo/pokemon.dart';
+import 'package:example_event_state_processor/extensions/context.dart';
 import 'package:example_event_state_processor/ui/pokemon_detail/widget/animated_fade.dart';
 import 'package:example_event_state_processor/ui/pokemon_detail/widget/decoration_box.dart';
 import 'package:example_event_state_processor/ui/pokemon_detail/widget/pokemon_basic_info.dart';
@@ -7,7 +8,6 @@ import 'package:example_event_state_processor/ui/pokemon_detail/widget/tab.dart'
 import 'package:example_event_state_processor/ui/util.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:example_event_state_processor/extensions/context.dart';
 
 class PokemonDetail extends StatefulWidget {
   const PokemonDetail(this.pokemon);
@@ -57,7 +57,7 @@ class _PokemonDetailState extends State<PokemonDetail>
     );
     _rotateController.repeat();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       final screenHeight = context.screenSize.height;
       final appBarHeight = AppBar().preferredSize.height;
 
@@ -75,9 +75,9 @@ class _PokemonDetailState extends State<PokemonDetail>
 
   Widget _buildBackground() {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      constraints: const BoxConstraints.expand(),
-      color: parseColorPokemon(widget.pokemon.types.first));
+        duration: const Duration(milliseconds: 300),
+        constraints: const BoxConstraints.expand(),
+        color: parseColorPokemon(widget.pokemon.types.first));
   }
 
   Widget _buildBoxDecoration() {

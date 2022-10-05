@@ -12,11 +12,12 @@ class Translations {
   static Map<String, dynamic>? _localizedValues;
 
   static Translations of(BuildContext context) {
-    return Localizations.of<Translations>(context, Translations) ?? Translations(const Locale('en'));
+    return Localizations.of<Translations>(context, Translations) ??
+        Translations(const Locale('en'));
   }
 
   String text(String key) {
-    if(_localizedValues == null) {
+    if (_localizedValues == null) {
       return '** $key not found';
     }
     return _localizedValues![key] != null

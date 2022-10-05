@@ -138,7 +138,7 @@ Pokemon _pokemonFromJson(Map<String, dynamic> json) {
       json['speed'] as num,
       json['total'] as num,
       json['male_percentage'] as String? ?? '',
-      json['female_percentage'] as String? ??'',
+      json['female_percentage'] as String? ?? '',
       json['genderless'] as num,
       json['cycles'] as String? ?? '',
       json['egg_groups'] as String,

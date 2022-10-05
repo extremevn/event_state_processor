@@ -12,18 +12,13 @@ import 'package:flutter/material.dart';
 //ignore: must_be_immutable
 class HomeScreen
     extends CoreScreen<HomeEvent, HomeDataState, HomeEventProcessor> {
-
-  @override
-  void handleDataStateChange(BuildContext context, HomeEventProcessor processor,
-      HomeDataState state) {}
-
   @override
   HomeEventProcessor createEventProcessor(BuildContext context) {
     return HomeEventProcessor();
   }
+
   @override
-  Widget buildScreenUi(
-      BuildContext context, HomeEventProcessor processor, HomeDataState state) {
+  Widget buildScreenUi(BuildContext context) {
     if (state.isInit) {
       processor.raiseEvent(const LoadDataEvent(page: 0));
     }
@@ -33,8 +28,11 @@ class HomeScreen
       body: SafeArea(
         child: Stack(
           children: [
-            _mainContentWidget(),
-            if (state.isLoading) LoadingIndicatorWidget(),
+            buildStateBuilderWidget(builder: _mainContentWidget),
+            buildStateBuilderWidget(
+                rebuildOnCondition: (p, c) => p.isLoading != c.isLoading,
+                builder: () => Visibility(
+                    visible: state.isLoading, child: LoadingIndicatorWidget())),
           ],
         ),
       ),

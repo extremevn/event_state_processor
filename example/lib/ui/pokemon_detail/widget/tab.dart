@@ -1,11 +1,11 @@
 import 'package:example_event_state_processor/configs/colors.dart';
 import 'package:example_event_state_processor/domain/pojo/pokemon.dart';
+import 'package:example_event_state_processor/extensions/context.dart';
 import 'package:example_event_state_processor/ui/app/translation.dart';
 import 'package:example_event_state_processor/ui/pokemon_detail/widget/tab_about.dart';
 import 'package:example_event_state_processor/ui/pokemon_detail/widget/tab_base_stats.dart';
 import 'package:example_event_state_processor/ui/pokemon_detail/widget/tab_evolution.dart';
 import 'package:flutter/material.dart';
-import 'package:example_event_state_processor/extensions/context.dart';
 
 class TabData {
   const TabData({
