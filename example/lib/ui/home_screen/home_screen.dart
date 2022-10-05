@@ -10,8 +10,7 @@ import 'package:example_event_state_processor/ui/view_common/loading_indicator_w
 import 'package:flutter/material.dart';
 
 //ignore: must_be_immutable
-class HomeScreen
-    extends CoreScreen<HomeEvent, HomeDataState, HomeEventProcessor> {
+class HomeScreen extends CoreScreen<HomeEvent, HomeDataState> {
   @override
   HomeEventProcessor createEventProcessor(BuildContext context) {
     return HomeEventProcessor();

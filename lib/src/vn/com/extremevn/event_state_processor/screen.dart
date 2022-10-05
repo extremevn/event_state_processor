@@ -26,15 +26,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// Base class for building screen ui
 //ignore: must_be_immutable
-abstract class CoreScreen<E extends UiEvent, S extends DataState,
-    EP extends EventToStateProcessor<E, S>> extends StatefulWidget {
+abstract class CoreScreen<E extends UiEvent, S extends DataState>
+    extends StatefulWidget {
   CoreScreen({Key? key}) : super(key: key);
 
   /// Processor for current screen
-  late EP _processor;
+  late EventToStateProcessor<E, S> _processor;
 
   /// Processor getter
-  EP get processor => _processor;
+  EventToStateProcessor<E, S> get processor => _processor;
 
   /// Current state getter
   S get currentState => _processor.state;
@@ -57,7 +57,8 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
   /// Util getter for whether screen is current active
   bool get isCurrentActive => ModalRoute.of(context)?.isCurrent ?? false;
 
-  EP _internalCreateEventProcessor(BuildContext context) {
+  EventToStateProcessor<E, S> _internalCreateEventProcessor(
+      BuildContext context) {
     _processor = createEventProcessor(context);
     _processor.requestHandler = handleRequest;
     return _processor;
@@ -65,7 +66,7 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
 
   /// Create & return `EventToStateProcessor` instance for use in this widget or its child. For ex:
   /// ```return LoginEventProcessor();```
-  EP createEventProcessor(BuildContext context);
+  EventToStateProcessor<E, S> createEventProcessor(BuildContext context);
 
   /// This method for build screen ui base on current data state. For ex: if state is `state.isLoading` is true then show ProgressBar
   ///	```if (state.isLoading) LoadingIndicatorWidget() else Container()```
@@ -73,7 +74,7 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
 
   Widget _internalBuildScreenUi(BuildContext context) {
     _context = context;
-    _processor = context.read<EP>();
+    _processor = context.read<EventToStateProcessor<E, S>>();
     return buildScreenUi(context);
   }
 
@@ -97,7 +98,7 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
       {Key? key,
       required ReturnWidgetFunction builder,
       RebuildWidgetOnStateChangeCondition<S>? rebuildOnCondition}) {
-    return StateBuilderWidget<EP, S>(
+    return StateBuilderWidget<EventToStateProcessor<E, S>, S>(
         key: key,
         builder: (_, __) => builder.call(),
         rebuildOnCondition: rebuildOnCondition);
@@ -110,7 +111,7 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
       required Widget child,
       RebuildWidgetOnStateChangeCondition<S>? rebuildOnCondition,
       RaiseListenerOnCondition<S>? listenOnCondition}) {
-    return StateConsumerWidget<EP, S>(
+    return StateConsumerWidget<EventToStateProcessor<E, S>, S>(
         key: key,
         builder: (_, __) => builder.call(),
         listener: (_, __) => listener.call(),
@@ -123,7 +124,7 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
       required VoidCallback listener,
       required Widget child,
       RaiseListenerOnCondition<S>? listenOnCondition}) {
-    return StateListenerWidget<EP, S>(
+    return StateListenerWidget<EventToStateProcessor<E, S>, S>(
         key: key,
         listener: (_, __) => listener.call(),
         listenOnCondition: listenOnCondition,
@@ -135,19 +136,18 @@ abstract class CoreScreen<E extends UiEvent, S extends DataState,
     required SelectorFunction<T> selector,
     required ReturnWidgetFunction builder,
   }) {
-    return StateSelectorWidget<EP, S, T>(
+    return StateSelectorWidget<EventToStateProcessor<E, S>, S, T>(
         key: key,
         builder: (_, __) => builder.call(),
         selector: (S) => selector.call());
   }
 
   @override
-  State<CoreScreen<E, S, EP>> createState() => _CoreScreenState<E, S, EP>();
+  State<CoreScreen<E, S>> createState() => _CoreScreenState<E, S>();
 }
 
-class _CoreScreenState<E extends UiEvent, S extends DataState,
-        EP extends EventToStateProcessor<E, S>>
-    extends State<CoreScreen<E, S, EP>> with TickerProviderStateMixin {
+class _CoreScreenState<E extends UiEvent, S extends DataState>
+    extends State<CoreScreen<E, S>> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -164,7 +164,7 @@ class _CoreScreenState<E extends UiEvent, S extends DataState,
   @override
   Widget build(BuildContext context) {
     widget._tickerProvider = this;
-    return BlocProvider<EP>(
+    return BlocProvider<EventToStateProcessor<E, S>>(
         create: widget._internalCreateEventProcessor,
         child: _ScreenContent(widget._internalBuildScreenUi));
   }

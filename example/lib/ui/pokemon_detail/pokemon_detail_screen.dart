@@ -7,8 +7,8 @@ import 'package:example_event_state_processor/ui/pokemon_detail/widget/pokemon_d
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class PokemonDetailScreen extends CoreScreen<PokemonDetailEvent,
-    PokemonDetailState, PokemonDetailEventProcessor> {
+class PokemonDetailScreen
+    extends CoreScreen<PokemonDetailEvent, PokemonDetailState> {
   final Pokemon pokemonDetail;
 
   PokemonDetailScreen(this.pokemonDetail);

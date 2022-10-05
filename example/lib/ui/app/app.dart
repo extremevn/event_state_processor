@@ -14,7 +14,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 late AppEventProcessor appEventProcessor;
 
 // ignore: must_be_immutable
-class App extends CoreScreen<AppEvent, AppDataState, AppEventProcessor> {
+class App extends CoreScreen<AppEvent, AppDataState> {
   @override
   Widget buildScreenUi(BuildContext context) {
     return MaterialApp(
